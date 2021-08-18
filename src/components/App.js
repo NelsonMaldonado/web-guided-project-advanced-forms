@@ -82,14 +82,22 @@ export default function App() {
   }
 
   const formSubmit = () => {
+    // const newHobbies = []
+    // for (let i = 0; i < formValues.hobbies.length; i++) {
+    //   if (formValues.hobbies[i]) {
+    //     newHobbies.push(formValues.hobbies[i]);
+    //   }
+    // }
     const newFriend = {
       username: formValues.username.trim(),
       email: formValues.email.trim(),
       role: formValues.role.trim(),
       civil: formValues.civil.trim(),
+      hobbies: ['hiking', 'reading', 'coding'].filter(hobby => !!formValues[hobby])
       // 🔥 STEP 7- WHAT ABOUT HOBBIES?
     }
     // 🔥 STEP 8- POST NEW FRIEND USING HELPER
+    postNewFriend(newFriend);
   }
 
   //////////////// SIDE EFFECTS ////////////////
@@ -101,6 +109,7 @@ export default function App() {
 
   useEffect(() => {
     // 🔥 STEP 9- ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
   }, [])
 
   return (
